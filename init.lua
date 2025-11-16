@@ -152,6 +152,12 @@ vim.o.splitbelow = true
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
+-- Tabs as Spaces
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.expandtab = true
+
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
 
@@ -474,6 +480,20 @@ require('lazy').setup({
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
       },
     },
+  },
+  {
+    'GustavEikaas/easy-dotnet.nvim',
+    dependencies = { 'mfussenegger/nvim-dap', 'nvim-telescope/telescope.nvim' },
+    opts = {
+      lsp = {
+      },
+      dap = {
+        enabled = true,
+      }
+    },
+    config = function(_, opts)
+      require('easy-dotnet').setup(opts)
+    end,
   },
   {
     -- Main LSP Configuration
