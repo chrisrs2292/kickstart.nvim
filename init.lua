@@ -718,6 +718,17 @@ require('lazy').setup({
             },
           },
         },
+        gopls = {
+          settings = {
+            gopls = {
+              anaylses = {
+                unusedparams = true,
+              },
+              staticcheck = true,
+              gofumpt = true
+            }
+          }
+        }
       }
 
       -- Ensure the servers and tools above are installed
@@ -736,6 +747,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'delve', -- Used for Go debugging
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -964,7 +976,23 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 
+        'bash', 
+        'c', 
+        'diff', 
+        'html', 
+        'lua', 
+        'luadoc', 
+        'markdown', 
+        'markdown_inline', 
+        'query', 
+        'vim', 
+        'vimdoc',
+        'go',
+        'gomod',
+        'gowork',
+        'gosum'
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -982,6 +1010,74 @@ require('lazy').setup({
     --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  },
+
+  {
+    'mfussenegger/nvim-dap',
+    dependencies = {
+      'rcarriga/nvim-dap-ui',           -- The UI
+      'nvim-neotest/nvim-nio',          -- Requirement for UI
+      'leoluz/nvim-dap-go',             -- Go specific config
+      'williamboman/mason.nvim',        -- To install the debugger
+    },
+    config = function()
+      local dap = require 'dap'
+      local dapui = require 'dapui'
+
+      require('dapui').setup()
+      require('dap-go').setup()
+
+      -- Keymaps for Debugging
+      vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
+      vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
+      vim.keymap.set('n', '<F2>', dap.step_over, { desc = 'Debug: Step Over' })
+      vim.keymap.set('n', '<F3>', dap.step_out, { desc = 'Debug: Step Out' })
+      vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
+      vim.keymap.set('n', '<leader>B', function()
+        dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+      end, { desc = 'Debug: Set Breakpoint' })
+      
+      -- Toggle UI manually
+      vim.keymap.set('n', '<leader>du', dapui.toggle, { desc = 'Debug: Toggle UI' })
+
+      -- Automatically open/close UI when debugging starts/ends
+      dap.listeners.after.event_initialized['dapui_config'] = dapui.open
+      dap.listeners.before.event_terminated['dapui_config'] = dapui.close
+      dap.listeners.before.event_exited['dapui_config'] = dapui.close
+    end,
+  },
+  
+  -- Add autopairs to allow for auto-indent when going into a block
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = function()
+      require('nvim-autopairs').setup {}
+    end
+  },
+
+  -- Add nvim tree as a replacement for the solution explorer
+  {
+    'nvim-tree/nvim-tree.lua',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('nvim-tree').setup({
+        update_focused_file = {
+          enable = true,
+          update_root = false,
+        },
+        view = {
+          width = 35,
+          relativenumber = true
+        },
+        filters = {
+          dotfiles = false,
+        }
+      })
+
+      vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', { desc = 'Toggle FileTree' })
+      vim.keymap.set('n', '<leader>ef', '<cmd>NvimTreeFindFile<CR>', { desc = 'Search FileTree' })
+    end
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
