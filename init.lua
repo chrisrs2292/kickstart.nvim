@@ -1045,6 +1045,14 @@ require('lazy').setup({
       dap.listeners.before.event_terminated['dapui_config'] = dapui.close
       dap.listeners.before.event_exited['dapui_config'] = dapui.close
     end,
+  },
+
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = function()
+      require('nvim-autopairs').setup {}
+    end
   }
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
