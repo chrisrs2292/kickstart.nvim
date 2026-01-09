@@ -1015,7 +1015,7 @@ require('lazy').setup({
   {
     'mfussenegger/nvim-dap',
     dependencies = {
-      'rcarriga/nvim-dap-ui',            -- The UI
+      'rcarriga/nvim-dap-ui',           -- The UI
       'nvim-neotest/nvim-nio',          -- Requirement for UI
       'leoluz/nvim-dap-go',             -- Go specific config
       'williamboman/mason.nvim',        -- To install the debugger
@@ -1046,14 +1046,39 @@ require('lazy').setup({
       dap.listeners.before.event_exited['dapui_config'] = dapui.close
     end,
   },
-
+  
+  -- Add autopairs to allow for auto-indent when going into a block
   {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     config = function()
       require('nvim-autopairs').setup {}
     end
-  }
+  },
+
+  -- Add nvim tree as a replacement for the solution explorer
+  {
+    'nvim-tree/nvim-tree.lua',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('nvim-tree').setup({
+        update_focused_file = {
+          enable = true,
+          update_root = false,
+        },
+        view = {
+          width = 35,
+          relativenumber = true
+        },
+        filters = {
+          dotfiles = false,
+        }
+      })
+
+      vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', { desc = 'Toggle FileTree' })
+      vim.keymap.set('n', '<leader>ef', '<cmd>NvimTreeFindFile<CR>', { desc = 'Search FileTree' })
+    end
+  },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
