@@ -304,7 +304,7 @@ require('lazy').setup({
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
-  { -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -385,7 +385,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -481,20 +481,20 @@ require('lazy').setup({
       },
     },
   },
-  {
-    'GustavEikaas/easy-dotnet.nvim',
-    dependencies = { 'mfussenegger/nvim-dap', 'nvim-telescope/telescope.nvim' },
-    opts = {
-      lsp = {
-      },
-      dap = {
-        enabled = true,
-      }
-    },
-    config = function(_, opts)
-      require('easy-dotnet').setup(opts)
-    end,
-  },
+  --{
+  --  'GustavEikaas/easy-dotnet.nvim',
+  --  dependencies = { 'mfussenegger/nvim-dap', 'nvim-telescope/telescope.nvim' },
+  --  opts = {
+  --    lsp = {
+  --    },
+  --    dap = {
+  --      enabled = true,
+  --    }
+  --  },
+  --  config = function(_, opts)
+  --    require('easy-dotnet').setup(opts)
+  --  end,
+  --},
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -507,7 +507,7 @@ require('lazy').setup({
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',    opts = {} },
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
@@ -747,7 +747,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'delve', -- Used for Go debugging
+        'delve',  -- Used for Go debugging
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -976,17 +976,17 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 
-        'bash', 
-        'c', 
-        'diff', 
-        'html', 
-        'lua', 
-        'luadoc', 
-        'markdown', 
-        'markdown_inline', 
-        'query', 
-        'vim', 
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
         'vimdoc',
         'go',
         'gomod',
@@ -1015,10 +1015,10 @@ require('lazy').setup({
   {
     'mfussenegger/nvim-dap',
     dependencies = {
-      'rcarriga/nvim-dap-ui',           -- The UI
-      'nvim-neotest/nvim-nio',          -- Requirement for UI
-      'leoluz/nvim-dap-go',             -- Go specific config
-      'williamboman/mason.nvim',        -- To install the debugger
+      'rcarriga/nvim-dap-ui',    -- The UI
+      'nvim-neotest/nvim-nio',   -- Requirement for UI
+      'leoluz/nvim-dap-go',      -- Go specific config
+      'williamboman/mason.nvim', -- To install the debugger
     },
     config = function()
       local dap = require 'dap'
@@ -1036,7 +1036,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>B', function()
         dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
       end, { desc = 'Debug: Set Breakpoint' })
-      
+
       -- Toggle UI manually
       vim.keymap.set('n', '<leader>du', dapui.toggle, { desc = 'Debug: Toggle UI' })
 
@@ -1046,7 +1046,7 @@ require('lazy').setup({
       dap.listeners.before.event_exited['dapui_config'] = dapui.close
     end,
   },
-  
+
   -- Add autopairs to allow for auto-indent when going into a block
   {
     'windwp/nvim-autopairs',
