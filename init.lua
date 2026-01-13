@@ -304,7 +304,7 @@ require('lazy').setup({
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -385,7 +385,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -485,11 +485,10 @@ require('lazy').setup({
   --  'GustavEikaas/easy-dotnet.nvim',
   --  dependencies = { 'mfussenegger/nvim-dap', 'nvim-telescope/telescope.nvim' },
   --  opts = {
-  --    lsp = {
-  --    },
+  --    lsp = {},
   --    dap = {
   --      enabled = true,
-  --    }
+  --    },
   --  },
   --  config = function(_, opts)
   --    require('easy-dotnet').setup(opts)
@@ -507,7 +506,7 @@ require('lazy').setup({
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim',    opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
@@ -725,10 +724,10 @@ require('lazy').setup({
                 unusedparams = true,
               },
               staticcheck = true,
-              gofumpt = true
-            }
-          }
-        }
+              gofumpt = true,
+            },
+          },
+        },
       }
 
       -- Ensure the servers and tools above are installed
@@ -747,7 +746,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'delve',  -- Used for Go debugging
+        'delve', -- Used for Go debugging
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -973,7 +972,7 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+    main = 'nvim-treesitter.config', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
       ensure_installed = {
@@ -991,7 +990,7 @@ require('lazy').setup({
         'go',
         'gomod',
         'gowork',
-        'gosum'
+        'gosum',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
@@ -1015,9 +1014,9 @@ require('lazy').setup({
   {
     'mfussenegger/nvim-dap',
     dependencies = {
-      'rcarriga/nvim-dap-ui',    -- The UI
-      'nvim-neotest/nvim-nio',   -- Requirement for UI
-      'leoluz/nvim-dap-go',      -- Go specific config
+      'rcarriga/nvim-dap-ui', -- The UI
+      'nvim-neotest/nvim-nio', -- Requirement for UI
+      'leoluz/nvim-dap-go', -- Go specific config
       'williamboman/mason.nvim', -- To install the debugger
     },
     config = function()
@@ -1053,7 +1052,7 @@ require('lazy').setup({
     event = 'InsertEnter',
     config = function()
       require('nvim-autopairs').setup {}
-    end
+    end,
   },
 
   -- Add nvim tree as a replacement for the solution explorer
@@ -1061,23 +1060,23 @@ require('lazy').setup({
     'nvim-tree/nvim-tree.lua',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      require('nvim-tree').setup({
+      require('nvim-tree').setup {
         update_focused_file = {
           enable = true,
           update_root = false,
         },
         view = {
           width = 35,
-          relativenumber = true
+          relativenumber = true,
         },
         filters = {
           dotfiles = false,
-        }
-      })
+        },
+      }
 
       vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', { desc = 'Toggle FileTree' })
       vim.keymap.set('n', '<leader>ef', '<cmd>NvimTreeFindFile<CR>', { desc = 'Search FileTree' })
-    end
+    end,
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
