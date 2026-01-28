@@ -1,89 +1,3 @@
---[[
-
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-========                                    .-----.          ========
-========         .----------------------.   | === |          ========
-========         |.-""""""""""""""""""-.|   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||   KICKSTART.NVIM   ||   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||                    ||   |-----|          ========
-========         ||:Tutor              ||   |:::::|          ========
-========         |'-..................-'|   |____o|          ========
-========         `"")----------------(""`   ___________      ========
-========        /::::::::::|  |::::::::::\  \ no mouse \     ========
-========       /:::========|  |==hjkl==:::\  \ required \    ========
-========      '""""""""""""'  '""""""""""""'  '""""""""""'   ========
-========                                                     ========
-=====================================================================
-=====================================================================
-
-What is Kickstart?
-
-  Kickstart.nvim is *not* a distribution.
-
-  Kickstart.nvim is a starting point for your own configuration.
-    The goal is that you can read every line of code, top-to-bottom, understand
-    what your configuration is doing, and modify it to suit your needs.
-
-    Once you've done that, you can start exploring, configuring and tinkering to
-    make Neovim your own! That might mean leaving Kickstart just the way it is for a while
-    or immediately breaking it into modular pieces. It's up to you!
-
-    If you don't know anything about Lua, I recommend taking some time to read through
-    a guide. One possible example which will only take 10-15 minutes:
-      - https://learnxinyminutes.com/docs/lua/
-
-    After understanding a bit more about Lua, you can use `:help lua-guide` as a
-    reference for how Neovim integrates Lua.
-    - :help lua-guide
-    - (or HTML version): https://neovim.io/doc/user/lua-guide.html
-
-Kickstart Guide:
-
-  TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
-
-    If you don't know what this means, type the following:
-      - <escape key>
-      - :
-      - Tutor
-      - <enter key>
-
-    (If you already know the Neovim basics, you can skip this step.)
-
-  Once you've completed that, you can continue working through **AND READING** the rest
-  of the kickstart init.lua.
-
-  Next, run AND READ `:help`.
-    This will open up a help window with some basic information
-    about reading, navigating and searching the builtin help documentation.
-
-    This should be the first place you go to look when you're stuck or confused
-    with something. It's one of my favorite Neovim features.
-
-    MOST IMPORTANTLY, we provide a keymap "<space>sh" to [s]earch the [h]elp documentation,
-    which is very useful when you're not exactly sure of what you're looking for.
-
-  I have left several `:help X` comments throughout the init.lua
-    These are hints about where to find more information about the relevant settings,
-    plugins or Neovim features used in Kickstart.
-
-   NOTE: Look for lines like this
-
-    Throughout the file. These are for you, the reader, to help you understand what is happening.
-    Feel free to delete them once you know what you're doing, but they should serve as a guide
-    for when you are first encountering a few different constructs in your Neovim config.
-
-If you experience any errors while trying to install kickstart, run `:checkhealth` for more info.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now! :)
---]]
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -91,7 +5,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -100,9 +14,7 @@ vim.g.have_nerd_font = false
 
 -- Make line numbers default
 vim.o.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
@@ -481,20 +393,19 @@ require('lazy').setup({
       },
     },
   },
-  {
-    'GustavEikaas/easy-dotnet.nvim',
-    dependencies = { 'mfussenegger/nvim-dap', 'nvim-telescope/telescope.nvim' },
-    opts = {
-      lsp = {
-      },
-      dap = {
-        enabled = true,
-      }
-    },
-    config = function(_, opts)
-      require('easy-dotnet').setup(opts)
-    end,
-  },
+  --{
+  --  'GustavEikaas/easy-dotnet.nvim',
+  --  dependencies = { 'mfussenegger/nvim-dap', 'nvim-telescope/telescope.nvim' },
+  --  opts = {
+  --    lsp = {},
+  --    dap = {
+  --      enabled = true,
+  --    },
+  --  },
+  --  config = function(_, opts)
+  --    require('easy-dotnet').setup(opts)
+  --  end,
+  --},
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -725,10 +636,10 @@ require('lazy').setup({
                 unusedparams = true,
               },
               staticcheck = true,
-              gofumpt = true
-            }
-          }
-        }
+              gofumpt = true,
+            },
+          },
+        },
       }
 
       -- Ensure the servers and tools above are installed
@@ -973,25 +884,25 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+    main = 'nvim-treesitter.config', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 
-        'bash', 
-        'c', 
-        'diff', 
-        'html', 
-        'lua', 
-        'luadoc', 
-        'markdown', 
-        'markdown_inline', 
-        'query', 
-        'vim', 
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
         'vimdoc',
         'go',
         'gomod',
         'gowork',
-        'gosum'
+        'gosum',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
@@ -1015,10 +926,10 @@ require('lazy').setup({
   {
     'mfussenegger/nvim-dap',
     dependencies = {
-      'rcarriga/nvim-dap-ui',           -- The UI
-      'nvim-neotest/nvim-nio',          -- Requirement for UI
-      'leoluz/nvim-dap-go',             -- Go specific config
-      'williamboman/mason.nvim',        -- To install the debugger
+      'rcarriga/nvim-dap-ui', -- The UI
+      'nvim-neotest/nvim-nio', -- Requirement for UI
+      'leoluz/nvim-dap-go', -- Go specific config
+      'williamboman/mason.nvim', -- To install the debugger
     },
     config = function()
       local dap = require 'dap'
@@ -1036,7 +947,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>B', function()
         dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
       end, { desc = 'Debug: Set Breakpoint' })
-      
+
       -- Toggle UI manually
       vim.keymap.set('n', '<leader>du', dapui.toggle, { desc = 'Debug: Toggle UI' })
 
@@ -1046,14 +957,14 @@ require('lazy').setup({
       dap.listeners.before.event_exited['dapui_config'] = dapui.close
     end,
   },
-  
+
   -- Add autopairs to allow for auto-indent when going into a block
   {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     config = function()
       require('nvim-autopairs').setup {}
-    end
+    end,
   },
 
   -- Add nvim tree as a replacement for the solution explorer
@@ -1061,23 +972,23 @@ require('lazy').setup({
     'nvim-tree/nvim-tree.lua',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      require('nvim-tree').setup({
+      require('nvim-tree').setup {
         update_focused_file = {
           enable = true,
           update_root = false,
         },
         view = {
           width = 35,
-          relativenumber = true
+          relativenumber = true,
         },
         filters = {
           dotfiles = false,
-        }
-      })
+        },
+      }
 
       vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', { desc = 'Toggle FileTree' })
       vim.keymap.set('n', '<leader>ef', '<cmd>NvimTreeFindFile<CR>', { desc = 'Search FileTree' })
-    end
+    end,
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
