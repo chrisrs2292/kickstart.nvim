@@ -18,7 +18,7 @@ return {
       },
     }
 
-    vim.keymap.set('n', '<leader>dr', function() dotnet.run_project() end, { desc = '[D]otnet [R]un' })
+    vim.keymap.set('n', '<leader>dr', function() dotnet.run() end, { desc = '[D]otnet [R]un' })
     vim.keymap.set('n', '<leader>dt', function() dotnet.test_solution() end, { desc = '[D]otnet [T]est' })
     vim.keymap.set('n', '<leader>ds', function() dotnet.secrets() end, { desc = '[D]otnet [S]ecrets' })
   end,
